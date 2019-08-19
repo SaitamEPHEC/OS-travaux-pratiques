@@ -5,19 +5,19 @@
 #define TMP_MAX_E2 90
 #define TMP_MAX_E3 60
 
-#define TMP_MAX_Q1 400
+#define TMP_MAX_Q1 18
 #define TMP_MAX_Q2 15
 #define TMP_MAX_Q3 12
 
-#define NB_VOIT 18
-#define NB_VOIT2 14
+#define NB_VOIT 20
+#define NB_VOIT2 15
 #define NB_VOIT3 10
 
 #define MIN_tmp 30.0
 #define MAX_tmp 40.0
 
 
-const NUM_VOIT[18] = {44,6,3,26,19,77,5,7,14,22,11,27,33,55,8,13,9,12};
+const NUM_VOIT[20] = {44,77,5,7,3,33,11,31,18,35,27,55,10,28,8,20,2,14,9,16};
 
 
 typedef struct voiture{
@@ -167,7 +167,7 @@ void openSM() {
     }
 
     int taille = sizeof(CHRONO);
-    taille = taille * 18;
+    taille = taille * 20;
 
     int shmid1 = shmget(shmkey, (taille),  IPC_CREAT | 0666 ); // ouvre ou le creee le segment
 
@@ -262,7 +262,7 @@ void tryWriteSM(int numVoitProcessus){
         if ((tabEssai[numVoitProcessus].position <= 5)) chrono = 35.0 + (float)rand() / ((float) RAND_MAX / (35.6 - 35.0));
         else if ((tabEssai[numVoitProcessus].position > 5) && (tabEssai[numVoitProcessus].position <= 10)) chrono = 35.5  + (float)rand() / ((float) RAND_MAX / (36.1 - 35.5 ));
         else if ((tabEssai[numVoitProcessus].position > 10) && (tabEssai[numVoitProcessus].position <= 15)) chrono = 36.0 + (float)rand() / ((float) RAND_MAX / (36.7 - 36.0));
-        else if ((tabEssai[numVoitProcessus].position > 15) && (tabEssai[numVoitProcessus].position <= 18)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
+        else if ((tabEssai[numVoitProcessus].position > 15) && (tabEssai[numVoitProcessus].position <= 20)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
       
 
         numVoit = tabEssai[numVoitProcessus].numVoit;
@@ -729,80 +729,6 @@ int i,j;
 }
 
 
-/*
-//environ 3 arrets aux stands en 44 laps sauf exceptions
-void manageStandStop(Tvoiture tabCl[]) {
-    //time passé aux stands pour pneu/essence
-    float stopMIN_TIME = 15.0 ;
-    float stopMAX_TIME = 20.0 ;
-    int i;
-    float timeStands;
-    //time passé aux stands pour reparation leger
-    float MIN_TIMEReparation = 35.0;
-    float MAX_TIMEReparation = 100.0;
-    srand((unsigned)time(0));
-    int temp;
-    //choisir 3 cars au hasard mais entre des bornes pour éviter doublons
-    //-> ceci garantit cette condition => if (tabCl[i].standStop < n)
-    temp= 0 + (int)rand() / ((int) RAND_MAX / (7 - 0));
-    int numV1 = POSSIBLE_NUMS[temp];
-    temp= 8 + (int)rand() / ((int) RAND_MAX / (12 - 8));
-    int numV2 = POSSIBLE_NUMS[temp];
-    temp= 16 + (int)rand() / ((int) RAND_MAX / (18 - 12));
-    int numV3 = POSSIBLE_NUMS[temp];
-    for (i=0;i<NB_VOIT;i++){
-       if (tabCl[i].etat =='C'){
-            //on tombe sur trois cars au hasard
-            if ((tabCl[i].numVoit == numV1) || (tabCl[i].numVoit == numV2)|| (tabCl[i].numVoit == numV3)){
-                //premier arret aux stands se fait entre 10 et 18 laps
-                if ( (tabCl[i].nb_tours >= 10 ) && (tabCl[i].nb_tours < 18) ){
-                    if (tabCl[i].standStop == 0){
-                        tabCl[i].standStop++;
-                        tabCl[i].etat = 'S';
-                        timeStands = stopMIN_TIME + (float)rand() / ((float) RAND_MAX / (stopMAX_TIME- stopMIN_TIME));
-                        tabCl[i].tmp_tour += timeStands;
-                    }
-                } else if ( (tabCl[i].laps >= 18 ) && (tabCl[i].laps < 26) ){
-                    if (tabCl[i].standStop == 1){
-                        tabCl[i].standStop++;
-                        tabCl[i].etat = 'S';
-                        timeStands = stopMIN_TIME + (float)rand() / ((float) RAND_MAX / (stopMAX_TIME - stopMIN_TIME));
-                        tabCl[i].lap += timeStands;
-                    }
-                    //dernier arret à 34 laps max, on ne fait pas d'arrets aux stands avant la ligne d'arrivé?
-                } else if ( (tabCl[i].laps >= 26 ) && (tabCl[i].laps < 34) ){
-                    if (tabCl[i].standStop == 2){
-                        tabCl[i].standStop++;
-                        tabCl[i].etat = 'S';
-                        timeStands = stopMIN_TIME + (float)rand() / ((float) RAND_MAX / (stopMAX_TIME - stopMIN_TIME));
-                        tabCl[i].lap += timeStands;
-                    }
-                }
-            }
-            /** CONDITIONS D'ARRET AUX STANDS EXCEPTIONNELLES !
-                PAR EX : SI ACCIDENT SANS ABANDON               **/
-            /*if ((tabCl[i].laps < 10 ) || (tabCl[i].laps > 34) ){
-                //choisir une car sur les 24
-                int temp;
-                temp= 0 + (int)rand() / ((int) RAND_MAX / (21 - 0));
-                int numcarAccident = POSSIBLE_NUMS[temp];
-                //probabilite qu'une car ait un accident
-                int probabiliteAccident = 0 + (int)rand() / ((int) RAND_MAX / (1500 - 0));
-                if (probabiliteAccident == numcarAccident){
-                    //si un accident leger se produit il doit s'arreter aux stands
-                    tabCl[i].standStop++;
-                    tabCl[i].etat = 'S';
-                    printf("%sACCIDENT EXCEPTION -> %s%s\n",RED,getPilote(tabCl[i].num),WHITE);
-                    //time qu'il faut pour reparer la car?
-                    timeStands = MIN_TIMEReparation + (float)rand() / ((float) RAND_MAX / (MAX_TIMEReparation - MIN_TIMEReparation));
-                    tabCl[i].lap += timeStands;
-                }
-            }
-        }
-    }
-}*/
-
-
 //trie le tableau de classement par lap pour savoir qui est premier
 void sortRankingGP(Tvoiture tabV[]){
 
@@ -1016,7 +942,7 @@ void writeSM(int numProcessus,Tvoiture tabV[],int tabStart[]){
         if ((tabV[numProcessus].position > 0) && (tabV[numProcessus].position <= 5)) chrono = 35.0 + (float)rand() / ((float) RAND_MAX / (35.6 - 35.0));
         else if ((tabV[numProcessus].position > 5) && (tabV[numProcessus].position <= 10)) chrono = 35.5  + (float)rand() / ((float) RAND_MAX / (36.1 - 35.5 ));
         else if ((tabV[numProcessus].position > 10) && (tabV[numProcessus].position <= 15)) chrono = 36.0 + (float)rand() / ((float) RAND_MAX / (36.7 - 36.0));
-        else if ((tabV[numProcessus].position > 15) && (tabV[numProcessus].position <= 18)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
+        else if ((tabV[numProcessus].position > 15) && (tabV[numProcessus].position <= 20)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
 
         num = tabV[numProcessus].numVoit;
 
@@ -1318,7 +1244,7 @@ void qualifs(int tmpQualif,int nbVoitQualif, Tvoiture tabV[],int tabStart[],Tsec
 
     int i,j,numQualif;
     int u=0;
-    CHRONO tabCh[18];
+    CHRONO tabCh[20];
     bool fini=false;
 
     openSM();
@@ -1327,8 +1253,8 @@ void qualifs(int tmpQualif,int nbVoitQualif, Tvoiture tabV[],int tabStart[],Tsec
 
     switch (nbVoitQualif){
 
-        case 18: numQualif = 1;break;
-        case 14: numQualif = 2;break;
+        case 20: numQualif = 1;break;
+        case 15: numQualif = 2;break;
         case 10: numQualif = 3;break;
 
     }
@@ -1372,7 +1298,7 @@ void sortStart(int lap, Tvoiture tabV[], Tvoiture tabClassementDepart[]){
         switch (lap){
             case 1:{
 
-                //on part de la derniere place du tab = 18 et on remonte jusqu'au 15
+                //on part de la derniere place du tab = 20 et on remonte jusqu'au 15
                 for (k=(NB_VOIT-1);k>=NB_VOIT2;k--){
 
                     tabClassementDepart[k] = tabV[k];
