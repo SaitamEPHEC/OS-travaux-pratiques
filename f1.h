@@ -128,7 +128,7 @@ void EInitSemId(){
     int semid;
 
     //crée 1 semaphore
-   if ((semid = semget(19, 1, 0666 | IPC_CREAT) < 0))  {
+   if ((semid = semget(21, 1, 0666 | IPC_CREAT) < 0))  {
       perror("creating semaphore");
       exit(EXIT_FAILURE);
    }
@@ -281,7 +281,7 @@ void tryWriteSM(int numVoitProcessus){
 
     shmPt[numVoitProcessus] = voiture;
 
-    semid = semget(19, 1, 0666);
+    semid = semget(21, 1, 0666);
     if (semid < 0){
         printf("semaphores introuvables");
         exit(0);
@@ -427,7 +427,7 @@ void essaiInitTab2(Tvoiture tabEssai[],int tabStart[]){
 
 void essaiReadSM(int nbSect, int nbV){
     int semid,j;
-    semid = semget(19, 1, 0666);
+    semid = semget(21, 1, 0666);
 
     if (semid < 0){
         printf("semaphores introuvables processus parent");
