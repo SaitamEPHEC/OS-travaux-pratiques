@@ -12,7 +12,7 @@
 #include <sys/wait.h>
 #include <stdbool.h>
 
-#include "lib.h"
+#include "f1.h"
 
 int main(){
 
