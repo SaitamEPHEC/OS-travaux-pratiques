@@ -261,8 +261,8 @@ void tryWriteSM(int numVoitProcessus){
         // TEMPS QUI SE CHEVAUCHEMENT POUR GERER LES DEPASSEMENTS
         if ((tabEssai[numVoitProcessus].position <= 5)) chrono = 35.0 + (float)rand() / ((float) RAND_MAX / (35.6 - 35.0));
         else if ((tabEssai[numVoitProcessus].position > 5) && (tabEssai[numVoitProcessus].position <= 10)) chrono = 35.5  + (float)rand() / ((float) RAND_MAX / (36.1 - 35.5 ));
-        else if ((tabEssai[numVoitProcessus].position > 10) && (tabEssai[numVoitProcessus].position <= 15)) chrono = 36.0 + (float)rand() / ((float) RAND_MAX / (36.7 - 36.0));
-        else if ((tabEssai[numVoitProcessus].position > 15) && (tabEssai[numVoitProcessus].position <= 20)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
+        else if ((tabEssai[numVoitProcessus].position > 10) && (tabEssai[numVoitProcessus].position <= 16)) chrono = 36.0 + (float)rand() / ((float) RAND_MAX / (36.7 - 36.0));
+        else if ((tabEssai[numVoitProcessus].position > 16) && (tabEssai[numVoitProcessus].position <= 20)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
       
 
         numVoit = tabEssai[numVoitProcessus].numVoit;
@@ -941,8 +941,8 @@ void writeSM(int numProcessus,Tvoiture tabV[],int tabStart[]){
         // TEMPS QUI SE CHEVAUCHEMENT POUR GERER LES DEPASSEMENTS
         if ((tabV[numProcessus].position > 0) && (tabV[numProcessus].position <= 5)) chrono = 35.0 + (float)rand() / ((float) RAND_MAX / (35.6 - 35.0));
         else if ((tabV[numProcessus].position > 5) && (tabV[numProcessus].position <= 10)) chrono = 35.5  + (float)rand() / ((float) RAND_MAX / (36.1 - 35.5 ));
-        else if ((tabV[numProcessus].position > 10) && (tabV[numProcessus].position <= 15)) chrono = 36.0 + (float)rand() / ((float) RAND_MAX / (36.7 - 36.0));
-        else if ((tabV[numProcessus].position > 15) && (tabV[numProcessus].position <= 20)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
+        else if ((tabV[numProcessus].position > 10) && (tabV[numProcessus].position <= 16)) chrono = 36.0 + (float)rand() / ((float) RAND_MAX / (36.7 - 36.0));
+        else if ((tabV[numProcessus].position > 16) && (tabV[numProcessus].position <= 20)) chrono = 36.5 + (float)rand() / ((float) RAND_MAX / (37.5 - 36.5));
 
         num = tabV[numProcessus].numVoit;
 
@@ -1298,7 +1298,7 @@ void sortStart(int lap, Tvoiture tabV[], Tvoiture tabClassementDepart[]){
         switch (lap){
             case 1:{
 
-                //on part de la derniere place du tab = 20 et on remonte jusqu'au 15
+                //on part de la derniere place du tab = 20 et on remonte jusqu'au 16
                 for (k=(NB_VOIT-1);k>=NB_VOIT2;k--){
 
                     tabClassementDepart[k] = tabV[k];
@@ -1353,7 +1353,7 @@ void sortStart(int lap, Tvoiture tabV[], Tvoiture tabClassementDepart[]){
             }break;
             case 2:{
 
-                //on part de la 15 place du tab et on remonte jusqu'au 10ème
+                //on part de la 16 place du tab et on remonte jusqu'au 10ème
                 for (k=(NB_VOIT2-1);k>=NB_VOIT3;k--){
 
                     tabClassementDepart[k] = tabV[k];
