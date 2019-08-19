@@ -17,7 +17,7 @@
 int main(){
 
     system("clear");
-    Menu1();
+    MenuEssai();
 
 return 0;
 }
