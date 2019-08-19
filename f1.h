@@ -5,7 +5,7 @@
 #define TMP_MAX_E2 90
 #define TMP_MAX_E3 60
 
-#define TMP_MAX_Q1 18
+#define TMP_MAX_Q1 400
 #define TMP_MAX_Q2 15
 #define TMP_MAX_Q3 12
 
@@ -17,7 +17,7 @@
 #define MAX_tmp 40.0
 
 
-const int NUM_VOIT[20] = {44,77,5,7,3,33,11,31,18,35,27,55,10,28,8,20,2,14,9,16};
+const NUM_VOIT[20] = {44,77,5,7,3,33,11,31,18,35,27,55,10,28,8,20,2,14,9,16};
 
 
 typedef struct voiture{
