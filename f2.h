@@ -5,7 +5,7 @@
 #define TMP_MAX_E2 90
 #define TMP_MAX_E3 60
 
-#define TMP_MAX_Q1 400
+#define TMP_MAX_Q1 18
 #define TMP_MAX_Q2 15
 #define TMP_MAX_Q3 12
 
