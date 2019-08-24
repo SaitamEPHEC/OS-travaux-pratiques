@@ -19,7 +19,7 @@
 
 const NUM_VOIT[18] = {44,6,3,26,19,77,5,7,14,22,11,27,33,55,8,13,9,12};
 
-
+// structure de la voiture
 typedef struct voiture{
     int numVoit; //numero de voiture
     float bestS1; // meilleur tmp premier secteur personnel pour la voiture
