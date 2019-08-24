@@ -862,7 +862,9 @@ void gererAbandon(Tvoiture tabV[]){
 
     //génère un nombre random entre min et max
     srand((unsigned)time(0));
-    probabilite = min + (int)rand() / ((int) RAND_MAX / (max - min));
+    
+    //probabilite = min + (int)rand() / ((int) RAND_MAX / (max - min));
+    probabilite = 6969;
 
     //parcours le tableau à la recherche des cars en courses
     for (i=0;i<NB_VOIT;i++){
