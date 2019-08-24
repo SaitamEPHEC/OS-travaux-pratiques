@@ -1,13 +1,13 @@
 #define NB_TOUR 15
 #define NB_SECT 3
 
-#define TMP_MAX_E1 100 //*60 pour 90min
+#define TMP_MAX_E1 90 //*60 pour 90min
 #define TMP_MAX_E2 90
 #define TMP_MAX_E3 60
 
-#define TMP_MAX_Q1 400
-#define TMP_MAX_Q2 15
-#define TMP_MAX_Q3 12
+#define TMP_MAX_Q1 1080
+#define TMP_MAX_Q2 900
+#define TMP_MAX_Q3 720
 
 #define NB_VOIT 20
 #define NB_VOIT2 15
