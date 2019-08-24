@@ -332,7 +332,7 @@ void tryShowsecteur(Tsecteur tabSect[],int comptSect){
 int EGetNbr(){
 
     srand(time(NULL) ^ (getpid()<<16));
-    int Tvoitures = 12 + (int)rand() / ((int) RAND_MAX / (6));
+    int Tvoitures = 14 + (int)rand() / ((int) RAND_MAX / (6));
     //printf(" NB VOITURE %d  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",Tvoitures );
     return(Tvoitures);
 
