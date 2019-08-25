@@ -1,7 +1,7 @@
 #define NB_TOUR 15
 #define NB_SECT 3
 
-#define TMP_MAX_E1 90 //*60 pour 90min
+#define TMP_MAX_E1 90 
 #define TMP_MAX_E2 90
 #define TMP_MAX_E3 60
 
@@ -23,8 +23,8 @@ const NUM_VOIT[20] = {44,77,5,7,3,33,11,31,18,35,27,55,10,28,8,20,2,14,9,16};
 typedef struct voiture{
     int numVoit; //numero de voiture
     float bestS1; // meilleur tmp premier secteur personnel pour la voiture
-    float bestS2; //..
-    float bestS3; //..
+    float bestS2; //meilleur tmp deuxieme secteur personnel pour la voiture
+    float bestS3; //meilleur tmp troisieme secteur personnel pour la voiture
     float bestTour; //s1+s2+s3
     float total; //tmp de course total pour cette voiture
     char etat; //C = en course, A = abandon
@@ -34,8 +34,8 @@ typedef struct voiture{
     float tmp_total; // pour les essais
     float tmp_retard; //tmp retard par rapport au premier
     int nb_tours;    //nb de laps que la Tvoiture a fait
-    float gaptotal; // ????????????????
-    int lapDelay; // ????????????????
+    float gaptotal; 
+    int lapDelay; 
     int position;
 }Tvoiture;
 
@@ -135,7 +135,7 @@ void EInitSemId(){
 
 
 
-    //initialise le semaphore numero 0 à 24
+    //initialise le semaphore numero
    if (semctl(semid, 0, SETVAL, semun1 ) < 0){
         perror("initialisation semaphore ");
         exit(EXIT_FAILURE);
@@ -333,7 +333,6 @@ int EGetNbr(){
 
     srand(time(NULL) ^ (getpid()<<16));
     int Tvoitures = 14 + (int)rand() / ((int) RAND_MAX / (6));
-    //printf(" NB VOITURE %d  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",Tvoitures );
     return(Tvoitures);
 
 }
@@ -811,9 +810,6 @@ void majRanking(Tvoiture tabV[],int nbV, int GP){
         }
     }
 
-
-        //if (GP == 1) manageStandStop(tabV);
-
         for (i=0;i<nbV;i++){
         //si la car n'a pas abandonnée
         if (tabV[i].etat != 'N'){
@@ -856,15 +852,14 @@ void majRanking(Tvoiture tabV[],int nbV, int GP){
 //random pour crash et abandons
 void gererAbandon(Tvoiture tabV[]){
     int min = 0;
-    int max = 250;
+    int max = 10000;
     int probabilite,i;
 
 
     //génère un nombre random entre min et max
     srand((unsigned)time(0));
     
-    //probabilite = min + (int)rand() / ((int) RAND_MAX / (max - min));
-    probabilite = 6969;
+    probabilite = min + (int)rand() / ((int) RAND_MAX / (max - min));
 
     //parcours le tableau à la recherche des cars en courses
     for (i=0;i<NB_VOIT;i++){
@@ -1034,9 +1029,9 @@ void majTvoiture(int comptSect, Tvoiture tabV[], CHRONO tabCh[],int nbV){
 
 
         //time de course total est ajouté
-        // printf("total before = %f \n",tabV[i].total );
+
         tabV[i].total += tabCh[i].tmp;
-       // printf("total after = %f \n",tabV[i].total );
+
         //NECESSAIRE sinon position = numero Tvoiture
         tabV[i].numVoit = tabCh[i].numVoit;
 
