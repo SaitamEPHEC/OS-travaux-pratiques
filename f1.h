@@ -852,7 +852,7 @@ void majRanking(Tvoiture tabV[],int nbV, int GP){
 //random pour crash et abandons
 void gererAbandon(Tvoiture tabV[]){
     int min = 0;
-    int max = 10000;
+    int max = 100000;
     int probabilite,i;
 
 
